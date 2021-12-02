@@ -1,0 +1,81 @@
+1.	Create Linux debian instance 
+  a.	Network tag: quake-server
+  b.	Everything else default
+  
+2.	Create firewall rules 
+  a.	Target tag: quake-server (Using this tag assigns it to the vm instance)
+  b.	Protocols/ports: Quake3 uses udp 27960
+  c.	Source ip ranges: 0.0.0.0/0 (Anyone can connect)
+  
+3.	Reserve external ip for server (VPC network section)
+  a.	Attach ip to quake3 server vm
+  
+4.	Store required quake files in gcp
+  a.	Create bucket in cloud storage app (name: quake3files)
+  b.	Upload quake 3 pak files to bucket
+  
+5.	SSH into VM and create new user
+  a.	SSH into VM
+  b.	Update linux
+    i.	Sudo apt update (checks for updates)
+    ii.	Sudo apt upgrade (performs update action)
+  c.	Become root (su -)
+    i.	GCP vm’s don’t come with a root pass setup. Must use sudo passwd to create one.
+    ii.	If you type just su, the useradd command will not work because the path is different. The command echo $PATH should show “/usr/sbin”
+  d.	Add user named quake3 (useradd -m -g users -d /home/quake3 -s /bin/bash quake3)
+    i.	-g: specifies group which is users
+    ii.	-d: specifies users home directory which is /home/quake3
+    iii.	-s: specifies login shell that user will be provided once logged in (/bin/bash)
+    iv.	-m: creates users home directory
+        (quake3 user account will run the server)
+        
+6.	Install quake3 server
+  a.	Apt-get install ioquake3-server (must be root)
+  b.	Apt list ioquake3-server (check if package installed)
+7.	Switch to quake 3 user
+  a.	As root, make sure to set password (command: passwd quake3)
+  b.	Su - quake3 (switches to user)
+  
+8.	Attempt to run server
+  a.	/usr/lib/ioquake3/ioq3ded (runs server)
+    i.	We receive an error stating that pak0.pk3 is missing
+    ii.	Running the server will create a .q3a directory
+    
+9.	Add paks 
+  a.	Navigate to .q3a/baseq3 (cd /home/quake3/.q3a/baseq3)
+  b.	Place paks in baseq3 folder (gsutil cp gs://quake3files/pak#.pk3 /home/quake3/.q3a/baseq3/
+  
+10.	Create quake 3 cfg files for server
+  a.	Autoexec.cfg (How much ram, network port, dedicated or not)
+  b.	Server.cfg (Gametype/game options)
+  c.	Bots.cfg 
+  d.	Levels.cfg (map rotation)
+    i.	Use touch command to create the files (touch autoexec.cfg)
+    ii.	Use nano command to edit (nano autoexec.cfg)
+    iii.	After editing is complete, ctrl+o to save, ctrl+x to exit
+    
+11.	Install screen app
+  a.	Allows the server to continue running once you leave your remote SSH session
+  b.	Apt install screen (as root)
+  c.	To create screen (screen -D -R)
+  d.	Screen commands
+    i.	Find out session id (screen -ls)
+    ii.	Reconnect to screen (screen -r <session id>
+    iii.	Terminate screen screen -X -S <session id> quit
+12.	Run server 
+  a.	Command: /usr/lib/ioquake3/ioq3ded +exec server.cfg +exec levels.cfg +exec bots.cfg
+  
+13.	Create script to start server instead of writing out above command
+  a.	Navigate to quake3 user home directory
+  b.	Create script file (touch q3server.sh)
+  c.	Edit file (nano q3server.sh)
+    i.	#!/bin/bash
+# script to start q3 server
+/usr/lib/ioquake3/ioq3ded +exec server.cfg +exec levels.cfg +exec bots.cfg
+    ii.	Give execute permissions to file (chmod +x q3server.sh)
+    
+14.	Summary to start server
+  a.	SSH into VM
+  b.	Start screen session (session -D -R)
+  c.	Change user (su – quake3)
+  d.	Run script (./q3server.sh)
