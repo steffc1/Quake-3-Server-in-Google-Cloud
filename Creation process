@@ -69,10 +69,7 @@
   a.	Navigate to quake3 user home directory
   b.	Create script file (touch q3server.sh)
   c.	Edit file (nano q3server.sh)
-    i.	#!/bin/bash
-# script to start q3 server
-/usr/lib/ioquake3/ioq3ded +exec server.cfg +exec levels.cfg +exec bots.cfg
-    ii.	Give execute permissions to file (chmod +x q3server.sh)
+    i.	Give execute permissions to file (chmod +x q3server.sh)
     
 14.	Summary to start server
   a.	SSH into VM
