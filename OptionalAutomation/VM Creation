@@ -1,5 +1,5 @@
 # Instead of using the gcp console, we can create an instance template using the cloud shell. Once created, we can use this to create identical VM's quickly.  
-# We will also set up startup scripts to update/upgrade Linux automatically.
+# We will also set up startup scripts to update/upgrade Linux automatically once the VM is created.
 
 # First, we need to create the instance template
     gcloud compute instance-templates create <Instance template name here> \
