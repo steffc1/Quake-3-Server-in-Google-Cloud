@@ -1,0 +1,22 @@
+# Instead of using the gcp console, we can create an instance template using the cloud shell. Once created, we can use this to create identical VM's quickly.  
+# We will also set up startup scripts to update/upgrade Linux automatically.
+
+# First, we need to create the instance template
+    gcloud compute instance-templates create <Instance template name here> \
+      --machine-type= <machine type> \
+      --image-family= <image family> \
+      --image-project= <image project> \
+      --boot-disk= <size>
+      
+# Example
+    gcloud compute instance-templates create q3server-template \
+      --machine-type=e2-medium \
+      --image-family=debian-10 \
+      --image-project=debian-cloud \
+      --boot-disk-size=10GB
+      
+# Second, we need to create the vm using the template
+    gcloud compute instances create <instance name> --source-instance-template <name of instance template to use> --zone=<zone>
+  
+# Example
+    gcloud compute instances create test --source-instance-template q3server-template --zone=us-central1-a
