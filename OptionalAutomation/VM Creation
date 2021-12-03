@@ -2,13 +2,28 @@
 # We will also set up startup scripts to update/upgrade Linux automatically once the VM is created/started.
 # I suggest putting these commands on one line in the shell. I have put them on multiple for readability purposes.
 
-#  We need to create the instance template
+#  Startup script for VM
+    touch startup.sh
+    nano startup.sh
+        #!/bin/bash
+        apt-get update
+        apt-get upgrade -y 
+        
+# Now, we need to copy the startup script from cloud shell to cloud storage
+    gsutil cp <startup script path> gs://<bucket path>
+    
+# Example    
+    gsutil cp /home/steffancastillo/vmstartup.sh gs://quake3files
+
+#  We need to create the instance template. 
+# You can choose what api's can access the VM using the scopes command. I used default in this case.
     gcloud compute instance-templates create <Instance template name here> \
       --machine-type= <machine type> \
       --image-family= <image family> \
       --image-project= <image project> \
       --boot-disk= <size> \
-      --metadata=startup-script-url=gs://<bucket path>
+      --metadata=startup-script-url=gs://<bucket path> \
+      --scopes=default
       
 # Example
     gcloud compute instance-templates create q3server-template \
@@ -29,26 +44,3 @@
     --zone=us-central1-a
     
     
-#  Startup script for VM
-    touch startup.sh
-    nano startup.sh
-        #!/bin/bash
-        apt-get update
-        apt-get upgrade -y 
-         
-# Now, we need to copy the file from cloud shell to cloud storage
-    gsutil cp <startup script path> gs://<bucket path>
-    
-# Example    
-    gsutil cp /home/steffancastillo/vmstartup.sh gs://quake3files
-    
-# We can now add the startup script to the vm instance creation command if we want. 
-    gcloud compute instances create <instance name> \
-    --source-instance-template <name of instance template to use> \
-    --zone=<zone> \
-    --metadata=startup-startup-script-url=<cloud storage url> \
-    --scopes=storage-ro
-    
-# Example
-    gcloud compute instances create quake3server-main --source-instance-template q3server-template --zone=us-central1-a --metadata=startup-startup-script-url=gs://quake3files/vmstartup.sh --scopes=storage-ro
-
