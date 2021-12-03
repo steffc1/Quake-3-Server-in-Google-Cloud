@@ -3,8 +3,8 @@
 # I suggest putting these commands on one line in the shell. I have put them on multiple for readability purposes.
 
 #  Startup script for VM
-    touch startup.sh
-    nano startup.sh
+    touch vmstartup.sh
+    nano vmstartup.sh
         #!/bin/bash
         apt-get update
         apt-get upgrade -y 
