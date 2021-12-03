@@ -1,12 +1,14 @@
 # Instead of using the gcp console, we can create an instance template using the cloud shell. Once created, we can use this to create identical VM's quickly.  
-# We will also set up startup scripts to update/upgrade Linux automatically once the VM is created.
+# We will also set up startup scripts to update/upgrade Linux automatically once the VM is created/started.
+# I suggest putting these commands on one line in the shell. I have put them on multiple for readability purposes.
 
 #  We need to create the instance template
     gcloud compute instance-templates create <Instance template name here> \
       --machine-type= <machine type> \
       --image-family= <image family> \
       --image-project= <image project> \
-      --boot-disk= <size>
+      --boot-disk= <size> \
+      --metadata=startup-script-url=gs://<bucket path>
       
 # Example
     gcloud compute instance-templates create q3server-template \
@@ -14,31 +16,39 @@
       --image-family=debian-10 \
       --image-project=debian-cloud \
       --boot-disk-size=10GB
+      --metadata=startup-script-url=gs://quake3files/vmstartup.sh 
       
 #  We need to create the vm using the template
-    gcloud compute instances create <instance name> --source-instance-template <name of instance template to use> --zone=<zone>
+    gcloud compute instances create <instance name> \
+    --source-instance-template <name of instance template to use> \
+    --zone=<zone>
   
 # Example
-    gcloud compute instances create quake3server-main --source-instance-template q3server-template --zone=us-central1-a
+    gcloud compute instances create quake3server-main \
+    --source-instance-template q3server-template \
+    --zone=us-central1-a
     
     
 #  Startup script for VM
     touch startup.sh
     nano startup.sh
         #!/bin/bash
-        # updates linux
         apt-get update
-        apt-get upgrade
+        apt-get upgrade -y 
          
 # Now, we need to copy the file from cloud shell to cloud storage
-    gsutil cp <startup script path> gs://<bucket name>
+    gsutil cp <startup script path> gs://<bucket path>
     
 # Example    
     gsutil cp /home/steffancastillo/vmstartup.sh gs://quake3files
     
-# We can now add the startup script to the vm instance creation command if we want
-    gcloud compute instances create <instance name> --source-instance-template <name of instance template to use> --zone=<zone> **--metadata=startup-startup-script-url=<cloud storage url>**
+# We can now add the startup script to the vm instance creation command if we want. 
+    gcloud compute instances create <instance name> \
+    --source-instance-template <name of instance template to use> \
+    --zone=<zone> \
+    --metadata=startup-startup-script-url=<cloud storage url> \
+    --scopes=storage-ro
     
 # Example
-    gcloud compute instances create quake3server-main --source-instance-template q3server-template --zone=us-central1-a **--metadata=startup-startup-script-url=gs://quake3files/vmstartup.sh**
+    gcloud compute instances create quake3server-main --source-instance-template q3server-template --zone=us-central1-a --metadata=startup-startup-script-url=gs://quake3files/vmstartup.sh --scopes=storage-ro
 
