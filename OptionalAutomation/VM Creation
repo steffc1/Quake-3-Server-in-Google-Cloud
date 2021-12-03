@@ -35,3 +35,10 @@
     
 # Example    
     gsutil cp /home/steffancastillo/vmstartup.sh gs://quake3files
+    
+# We can now add the startup script to the vm instance creation command if we want
+    gcloud compute instances create <instance name> --source-instance-template <name of instance template to use> --zone=<zone> **--metadata=startup-startup-script-url=<cloud storage url>**
+    
+# Example
+    gcloud compute instances create quake3server-main --source-instance-template q3server-template --zone=us-central1-a **--metadata=startup-startup-script-url=gs://quake3files/vmstartup.sh**
+
