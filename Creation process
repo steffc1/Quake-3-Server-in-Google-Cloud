@@ -43,7 +43,7 @@
     
 9.	Add paks 
   a.	Navigate to .q3a/baseq3 (cd /home/quake3/.q3a/baseq3)
-  b.	Place paks in baseq3 folder (gsutil cp gs://quake3files/pak#.pk3 /home/quake3/.q3a/baseq3/
+  b.	Place paks in baseq3 folder (gsutil cp gs://quake3files/paks/pak#.pk3 /home/quake3/.q3a/baseq3/
   
 10.	Create quake 3 cfg files for server
   a.	Autoexec.cfg (How much ram, network port, dedicated or not)
