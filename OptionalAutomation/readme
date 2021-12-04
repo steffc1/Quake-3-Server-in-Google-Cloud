@@ -1,1 +1,18 @@
-f
+Optional Automation
+These scripts can be used to quickly create quake 3 VM servers. 
+
+The following will need to be uploaded to cloud storage
+1. cfg files
+2. pak files
+3. scripts
+
+The scripts will then need to be uploaded to the /home/quake3/ directory from cloud storage using the gsutil cp command (gsutil cp gs://<bucket path> /home/quake3
+
+
+At this time, the only things not automated are
+  1. Creating the password for root
+  2. Creating the quake3 user and password
+  3. Starting screen
+  4. Creating firewall rules
+  
+For the above, refer to the creation process file.
