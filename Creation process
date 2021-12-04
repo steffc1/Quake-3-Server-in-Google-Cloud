@@ -62,6 +62,8 @@
     i.	Find out session id (screen -ls)
     ii.	Reconnect to screen (screen -r <session id>
     iii.	Terminate screen screen -X -S <session id> quit
+    IV. Detach from screen (ctrl-a + ctrl-d)
+    
     
 12.	Run server 
   a.	Command: /usr/lib/ioquake3/ioq3ded +exec server.cfg +exec levels.cfg +exec bots.cfg
