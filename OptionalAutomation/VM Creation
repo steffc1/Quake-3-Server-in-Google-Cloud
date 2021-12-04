@@ -8,6 +8,7 @@
         #!/bin/bash
         apt-get update
         apt-get upgrade -y 
+        apt-get install screen -y
         
 # Now, we need to copy the startup script from cloud shell to cloud storage
     gsutil cp <startup script path> gs://<bucket path>
