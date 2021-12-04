@@ -20,7 +20,7 @@
     i.	Sudo apt update (checks for updates)
     ii.	Sudo apt upgrade (performs update action)
   c.	Become root (su -)
-    i.	GCP vm’s don’t come with a root pass setup. Must use sudo passwd to create one.
+    i.	GCP vm’s don’t come with a root pass setup. Must use "sudo passwd" to create one.
     ii.	If you type just su, the useradd command will not work because the path is different. The command echo $PATH should show “/usr/sbin”
   d.	Add user named quake3 (useradd -m -g users -d /home/quake3 -s /bin/bash quake3)
     i.	-g: specifies group which is users
@@ -33,7 +33,7 @@
   a.	Apt-get install ioquake3-server (must be root)
   b.	Apt list ioquake3-server (check if package installed)
 7.	Switch to quake 3 user
-  a.	As root, make sure to set password (command: passwd quake3)
+  a.	As root, make sure to set password (command: passwd <password here>)
   b.	Su - quake3 (switches to user)
   
 8.	Attempt to run server
