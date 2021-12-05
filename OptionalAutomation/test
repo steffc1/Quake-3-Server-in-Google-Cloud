@@ -1,0 +1,35 @@
+1. Run instancecreation.sh from cloud shell (This should create the instance template and the instance)
+    (If i run the script, the first command gives an error stating an instance template already exists with that name. The second command looks to be successful, 
+    creating a vm if the name is not the same as any already existing. The startup script was successful)
+    
+    **** Need to figure out how to get the script to ask the user to enter a name for the VM.
+    **** Need to figure out why network tag is not being added to VM even though its specified in instance template command.
+    
+2. Create password for root (sudo passwd)
+
+3. Create quake 3 user and password (must be root)
+      useradd -m -g users -d /home/quake3 -s /bin/bash quake3
+      passwd quake3
+      
+4. Switch to quake3 user
+      su - quake3
+      
+5. Run server to create .q3a directory
+      /usr/lib/ioquake3/ioq3ded
+      (The server will not run because the game files are missing but directories will still be made)
+
+6. Move uploadscripts.sh from cloud storage to vm and give execute permissions
+      gsutil cp gs://quake3files/scripts/uploadscripts.sh /home/quake3/
+      chmod +x uploadscripts.sh
+      
+7. Run uploadscripts.sh
+      ./uploadscripts.sh
+      
+8. Give execute permissions to addexecuteperms.sh and run it
+      chmod +x addexecuteperms.sh
+      ./addexecuteperms.sh
+      
+ 7. Run uploadpaks.sh  uploadservercfgs.sh
+ 
+ 8. Run server (as quake3 user)
+      /usr/lib/ioquake3/ioq3ded +exec server.cfg +exec levels.cfg +exec bots.cfg
