@@ -48,7 +48,7 @@ This is for the quick creation of quake 3 servers in GCP using scripts.
       
       
    Extra screen commands:
-   	Find out session id (screen -ls)
+   	Find session id (screen -ls)
 	Reconnect to screen (screen -r <session id>
-	Terminate screen screen -X -S <session id> quit
+	Terminate screen (screen -X -S <session id> quit)
 	Detach from screen (ctrl-a + ctrl-d)
