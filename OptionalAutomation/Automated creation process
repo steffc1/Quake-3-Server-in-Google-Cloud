@@ -1,6 +1,7 @@
-1. Run instancecreation.sh from cloud shell (This should create the instance template and the instance)
-    (If i run the script, the first command gives an error stating an instance template already exists with that name. The second command looks to be successful, 
-    creating a vm if the name is not the same as any already existing. The startup script was successful)
+1. Run instancecreation.sh from cloud shell (This should create the instance template and instance. It will also run startup scripts to update linux, install screen, 
+   and ioq3-server)
+    (If the template already exists, you will receive an error stating such. The second command to create the instance will still be successful if the 
+    VM name specified is not the same as any existin VM's in GCP)
     
     **** Need to figure out how to get the script to ask the user to enter a name for the VM.
     **** Need to figure out why network tag is not being added to VM even though its specified in instance template command.
