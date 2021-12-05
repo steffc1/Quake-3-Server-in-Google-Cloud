@@ -26,7 +26,7 @@
       --boot-disk= <size> \
       --metadata=startup-script-url=gs://<bucket path> \
       --scopes=default \
-      --tag quake-server
+      --tag=quake-server
       
 # Example
     gcloud compute instance-templates create q3server-template \
