@@ -29,8 +29,9 @@
       /usr/lib/ioquake3/ioq3ded
       (The server will not run because the game files are missing but directories will still be made)
       
-7. Copy files.sh from cloud storage to vm
+7. Copy files.sh from cloud storage to vm. Give execute permissions to script
       gsutil cp gs://quake3files/scripts/files.sh /home/quake3
+      chmod +x files.sh
  
 8. Run files.sh
       ./files.sh
