@@ -1,5 +1,0 @@
------1. Create scripts for instance template and instance creation
-DONE 2. Create scripts to add execute perms to q3serverstart.sh, uploadpaks.sh, uploadservercfgs.sh
-DONE 3. Create script to upload q3serverstart.sh, uploadpaks.sh, uploadservercfgs.sh from cloud storage to VM
-DONE 4. Create script to upload game cfgs from cloud storage to VM. 
-5. Make an all in one script to upload all sh and game files 
