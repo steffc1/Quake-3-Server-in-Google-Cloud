@@ -2,21 +2,6 @@
 # We will also set up startup scripts to update/upgrade Linux automatically once the VM is created/started, install Screen, and the ioquake3-server package.
 # I suggest putting these commands on one line in the shell. I have put them on multiple for readability purposes.
 
-#  Startup script for VM
-    touch vmstartup.sh
-    nano vmstartup.sh
-        #!/bin/bash
-        apt-get update
-        apt-get upgrade -y 
-        apt-get install screen -y
-        apt-get install ioquake3-server -y
-        
-# Now, we need to copy the startup script from cloud shell to cloud storage
-    gsutil cp <startup script path> gs://<bucket path>
-    
-# Example    
-    gsutil cp /home/steffancastillo/vmstartup.sh gs://quake3files
-
 #  We need to create the instance template. 
 # You can choose what api's can access the VM using the scopes command. I used default in this case.
     gcloud compute instance-templates create <Instance template name here> \
@@ -26,15 +11,16 @@
       --boot-disk= <size> \
       --metadata=startup-script-url=gs://<bucket path> \
       --scopes=default \
-      --tag=quake-server
+      --tags=<tag>
       
 # Example
     gcloud compute instance-templates create q3server-template \
       --machine-type=e2-medium \
       --image-family=debian-10 \
       --image-project=debian-cloud \
-      --boot-disk-size=10GB
-      --metadata=startup-script-url=gs://quake3files/vmstartup.sh 
+      --boot-disk-size=10GB \
+      --metadata=startup-script-url=gs://quake3files/vmstartup.sh \
+      --tags=quake-server
       
 #  We need to create the vm using the template
     gcloud compute instances create <instance name> \
