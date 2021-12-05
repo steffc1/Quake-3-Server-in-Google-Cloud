@@ -3,7 +3,7 @@
 
 2. Copy instancecreation.sh from cloud storage to cloud shell. Give it execute permissions and run it
        gsutil cp <startup script path> gs://<bucket path>
-       ch mod +x instancecreation.sh
+       chmod +x instancecreation.sh
       ./instancreation.sh
       (This should create the instance template and instance. It will also run startup scripts to update linux, install screen, and ioq3-server.)
       (If the template already exists, you will receive an error stating such. The second command to create the instance will still be successful if the 
