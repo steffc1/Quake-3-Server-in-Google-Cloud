@@ -32,9 +32,9 @@
        
 9. Run server (as quake3 user)
       SSH into VM
-      screen -D -R
-      su - quake3
-      ./q3serverstart
+      Start screen session: screen -D -R
+      Change user: su - quake3
+      Start server: ./q3serverstart
       
       
    Extra screen commands:
