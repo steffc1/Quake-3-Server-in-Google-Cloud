@@ -1,4 +1,4 @@
-1. Using GCP console, create and bucket and place the following inside: paks 1-8, autoxec.cfg, server.cfg, levels.cfg, bots.cfg, vmstartup.sh, instancecreation.sh, 
+1. Using GCP console, create bucket and place the following inside: paks 1-8, autoxec.cfg, server.cfg, levels.cfg, bots.cfg, vmstartup.sh, instancecreation.sh, 
    q3serverstart.sh, files.sh
 
 Run instancecreation.sh from cloud shell (This should create the instance template and instance. It will also run startup scripts to update linux, install screen, 
