@@ -1,4 +1,7 @@
-1. Run instancecreation.sh from cloud shell (This should create the instance template and instance. It will also run startup scripts to update linux, install screen, 
+1. Using GCP console, create and bucket and place the following inside: paks 1-8, autoxec.cfg, server.cfg, levels.cfg, bots.cfg, vmstartup.sh, instancecreation.sh, 
+   q3serverstart.sh, files.sh
+
+Run instancecreation.sh from cloud shell (This should create the instance template and instance. It will also run startup scripts to update linux, install screen, 
    and ioq3-server)
     (If the template already exists, you will receive an error stating such. The second command to create the instance will still be successful if the 
     VM name specified is not the same as any existin VM's in GCP)
@@ -18,19 +21,20 @@
 5. Run server to create .q3a directory
       /usr/lib/ioquake3/ioq3ded
       (The server will not run because the game files are missing but directories will still be made)
+      
 
-6. Move uploadscripts.sh from cloud storage to vm and give execute permissions
-      gsutil cp gs://quake3files/scripts/uploadscripts.sh /home/quake3/
-      chmod +x uploadscripts.sh
+
+7. Copy files.sh from cloud storage to vm
+      gsutil cp gs://quake3files/scripts/files.sh /home/quake3
+ 
+7. Run files.sh
+      This will copy game files and cfg's from cloud storage tov proper directories. 
+
       
-7. Run uploadscripts.sh
-      ./uploadscripts.sh
-      
+   
 8. Give execute permissions to addexecuteperms.sh and run it
       chmod +x addexecuteperms.sh
       ./addexecuteperms.sh
-      
- 7. Run uploadpaks.sh  uploadservercfgs.sh
- 
+       
  8. Run server (as quake3 user)
-      /usr/lib/ioquake3/ioq3ded +exec server.cfg +exec levels.cfg +exec bots.cfg
+      ./q3startserver.sh
