@@ -1,4 +1,4 @@
-1. Using GCP console, create bucket and place the following inside: paks 1-8, autoexec.cfg, server.cfg, levels.cfg, bots.cfg, vmstartup.sh, instancecreation.sh, 
+1. Using GCP console, create bucket and place the following inside: paks 0-8, autoexec.cfg, server.cfg, levels.cfg, bots.cfg, vmstartup.sh, instancecreation.sh, 
    q3serverstart.sh, files.sh
 
 2. Run instancecreation.sh from cloud shell 
