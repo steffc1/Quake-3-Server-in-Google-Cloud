@@ -1,7 +1,10 @@
 1. Using GCP console, create bucket and place the following inside: paks 0-8, autoexec.cfg, server.cfg, levels.cfg, bots.cfg, vmstartup.sh, instancecreation.sh, 
    q3serverstart.sh, files.sh
 
-2. Run instancecreation.sh from cloud shell 
+2. Copy instancecreation.sh from cloud storage to cloud shell. Give it execute permissions and run it
+       gsutil cp <startup script path> gs://<bucket path>
+       ch mod +x instancecreation.sh
+      ./instancreation.sh
       (This should create the instance template and instance. It will also run startup scripts to update linux, install screen, and ioq3-server.)
       (If the template already exists, you will receive an error stating such. The second command to create the instance will still be successful if the 
       VM name specified is not the same as any existin VM's in GCP.)
@@ -10,6 +13,9 @@
     **** Need to figure out why network tag is not being added to VM even though its specified in instance template command.
     
 3. Create firewall using GCP console
+      Target tag: quake-server (Using this tag assigns it to the vm instance)
+      Protocols/ports: Quake3 uses udp 27960
+      Source ip ranges: 0.0.0.0/0 (Anyone can connect)
     
 4. SSH into VM and create password for root 
       sudo passwd
@@ -18,7 +24,7 @@
       useradd -m -g users -d /home/quake3 -s /bin/bash quake3
       passwd quake3
       
-6. Switch to quake3 user and run servr
+6. Switch to quake3 user and run server
       su - quake3
       /usr/lib/ioquake3/ioq3ded
       (The server will not run because the game files are missing but directories will still be made)
