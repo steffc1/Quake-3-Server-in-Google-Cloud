@@ -1,5 +1,5 @@
 Optional Automation
-This is for the quick creation of quake 3 servers in GCP.
+This is for the quick creation of quake 3 servers in GCP using scripts.
 
 
 1. Using GCP console, create bucket and place the following inside: 
